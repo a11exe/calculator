@@ -20,46 +20,69 @@ public class OperationParser {
 
     public List<OperationExecutor> parseOperations(String input) {
         List<OperationExecutor> operationExecutorList = new ArrayList<>();
-        validator.isInputValid(input);
-
-        StringBuilder value = new StringBuilder();
-        OperationType prevOperationType = null;
-        OperationType operationType = null;
-        OperationExecutor prevOperationExecutor = null;
-        for (int i = 0; i < input.length(); i++) {
-            String substring = input.substring(i, i + 1);
-            if (prevOperationType == null) {
-                if ("-".equals(substring)) {
-                    prevOperationType = MINUS;
-                    continue;
-                } else {
-                    prevOperationType = PLUS;
-                }
-            }
-
-            operationType = getOperation(substring, validator.getOperations());
-            if (operationType != null) {
-                OperationExecutor operationExecutor = new OperationExecutor(
-                        prevOperationType,
-                        prevOperationType.getPriority(),
-                        Float.parseFloat(value.toString()),
-                        prevOperationExecutor);
-                operationExecutorList.add(operationExecutor);
-                prevOperationExecutor = operationExecutor;
-
-                value.setLength(0);
-                prevOperationType = operationType;
-            } else {
-                value.append(substring);
-            }
-        }
-
-        operationExecutorList.add(
-                new OperationExecutor(
-                        prevOperationType,
-                        prevOperationType.getPriority(),
-                        Float.parseFloat(value.toString()),
-                        prevOperationExecutor));
+//        validator.isInputValid(input);
+//
+//        StringBuilder value = new StringBuilder();
+//        OperationType prevOperationType = null;
+//        OperationType operationType = null;
+//        OperationExecutor prevOperationExecutor = null;
+//        int priorityRate = 1;
+//        boolean upPriority = false;
+//        boolean downPriority = false;
+//        for (int i = 0; i < input.length(); i++) {
+//            String substring = input.substring(i, i + 1);
+//
+//            if (prevOperationType == null) {
+//                if ("-".equals(substring)) {
+//                    prevOperationType = MINUS;
+//                    continue;
+//                } else {
+//                    prevOperationType = PLUS;
+//                }
+//            }
+//
+//            if ("(".equals(substring)) {
+//                upPriority = true;
+//                continue;
+//            }
+//            if (")".equals(substring)) {
+//                downPriority = true;
+//                continue;
+//            }
+//
+//            operationType = getOperation(substring, validator.getOperations());
+//            if (operationType != null) {
+//                OperationExecutor operationExecutor = new OperationExecutor(
+//                        prevOperationType,
+//                        prevOperationType.getPriority() * priorityRate,
+//                        Float.parseFloat(value.toString()),
+//                        prevOperationExecutor);
+//                operationExecutorList.add(operationExecutor);
+//                if (prevOperationExecutor != null) {
+//                    prevOperationExecutor.setNext(operationExecutor);
+//                }
+//                prevOperationExecutor = operationExecutor;
+//                value.setLength(0);
+//                prevOperationType = operationType;
+//                if (upPriority) {
+//                    priorityRate += 10;
+//                    upPriority = false;
+//                }
+//                if (downPriority) {
+//                    priorityRate -= 10;
+//                    downPriority = false;
+//                }
+//            } else {
+//                value.append(substring);
+//            }
+//        }
+//
+//        operationExecutorList.add(
+//                new OperationExecutor(
+//                        prevOperationType,
+//                        prevOperationType.getPriority() * priorityRate,
+//                        Float.parseFloat(value.toString()),
+//                        prevOperationExecutor));
 
         return operationExecutorList;
     }

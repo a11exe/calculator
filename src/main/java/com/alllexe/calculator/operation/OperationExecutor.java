@@ -1,32 +1,26 @@
 package com.alllexe.calculator.operation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class OperationExecutor {
 
     private final OperationType operationType;
-    private final int priority;
     private Float value;
-    private OperationExecutor prev;
+    private final List<OperationExecutor> operationExecutorList;
 
     public OperationExecutor(OperationType operationType,
-                             int priority,
-                             Float value,
-                             OperationExecutor prev) {
+                             Float value) {
         this.operationType = operationType;
-        this.priority = priority;
         this.value = value;
-        this.prev = prev;
-    }
-
-    public int getPriority() {
-        return priority;
+        this.operationExecutorList = new ArrayList<>();
     }
 
     public Float exec(Float result) {
-        return operationType.getOperation().apply(result, value);
-    }
-
-    public OperationExecutor getPrev() {
-        return prev;
+        System.out.println("Perform "+result+" "+operationType.getSign()+" "+value);
+        Float r = operationType.getOperation().apply(result, value);
+        System.out.println("result "+r);
+        return r;
     }
 
     public Float getValue() {
@@ -35,5 +29,9 @@ public class OperationExecutor {
 
     public void setValue(Float value) {
         this.value = value;
+    }
+
+    public List<OperationExecutor> getOperationExecutorList() {
+        return operationExecutorList;
     }
 }

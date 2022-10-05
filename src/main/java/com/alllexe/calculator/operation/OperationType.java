@@ -3,10 +3,10 @@ package com.alllexe.calculator.operation;
 import java.util.function.BinaryOperator;
 
 public enum OperationType {
-    PLUS("+", 0, Float::sum),
-    MINUS("-", 0, ((a, b) -> a - b)),
-    DIVIDE("/", 1, ((a, b) -> (a / b))),
-    MULTIPLE("*", 1, ((a, b) -> (a * b)));
+    PLUS("+", 1, Float::sum),
+    MINUS("-", 1, ((a, b) -> a - b)),
+    DIVIDE("/", 2, ((a, b) -> (a / b))),
+    MULTIPLE("*", 2, ((a, b) -> (a * b)));
 
     private final String sign;
     private final int priority;

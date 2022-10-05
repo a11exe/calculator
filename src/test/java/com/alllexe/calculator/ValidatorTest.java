@@ -5,20 +5,45 @@ import com.alllexe.calculator.operation.OperationType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 
 class ValidatorTest {
 
-    final Validator validator = new Validator(Collections.singleton(OperationType.PLUS));
+    final Validator validator = new Validator(new HashSet<>(
+            Arrays.asList(
+                    OperationType.PLUS,
+                    OperationType.MINUS,
+                    OperationType.MULTIPLE,
+                    OperationType.DIVIDE)));
 
     @Test
     void whenInputNotValidThanException() {
         Assertions.assertThrows(InputNotValidException.class,
-                () ->validator.isInputValid(""));
+                () -> validator.validate(""));
+    }
+
+    @Test
+    void whenInputContainsCharsThanException() {
+        Assertions.assertThrows(InputNotValidException.class,
+                () -> validator.validate("3+dds"));
+    }
+
+    @Test
+    void whenInputStartsMultipleThanException() {
+        Assertions.assertThrows(InputNotValidException.class,
+                () -> validator.validate("*3+5"));
+    }
+
+    @Test
+    void whenInputEndsWrongThanException() {
+        Assertions.assertThrows(InputNotValidException.class,
+                () -> validator.validate("3+5-"));
     }
 
     @Test
     void whenInputValidThanNoException() {
-        validator.isInputValid("5+4");
+        validator.validate("(5+4)");
     }
 }

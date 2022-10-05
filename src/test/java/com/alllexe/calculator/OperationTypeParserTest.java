@@ -29,7 +29,7 @@ class OperationTypeParserTest {
         OperationParser operationParser = new OperationParser(validator);
 
         Set<OperationType> operationTypes = new HashSet<>(Collections.singletonList(PLUS));
-        doNothing().when(validator).isInputValid(anyString());
+        doNothing().when(validator).validate(anyString());
         when(validator.getOperations()).thenReturn(operationTypes);
         List<OperationExecutor> operationExecutorList =
                 operationParser.parseOperations("4+5");

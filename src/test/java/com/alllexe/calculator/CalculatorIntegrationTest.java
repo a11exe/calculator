@@ -29,8 +29,17 @@ class CalculatorIntegrationTest {
     }
 
     @Test
-    void whenDivideAndMultipleWithBraceshanRightResult() {
+    void whenDivideAndMultipleWithBracesThanRightResult() {
         assertEquals("14.5", calculator.calculate("-0.5+(6-2)*3+6/2"));
+    }
+
+    @Test
+    void whenBracesThanRightResult() {
+        assertEquals("-6.5", calculator.calculate("-0.5+(6-2*4-1)*3+6/2"));
+    }
+    @Test
+    void whenMultipleBracesThanRightResult() {
+        assertEquals("2.5", calculator.calculate("-0.5+(6-2*(4-1))*3+6/2"));
     }
 
 
