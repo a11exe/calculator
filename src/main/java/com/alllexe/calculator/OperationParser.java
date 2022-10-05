@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import static com.alllexe.calculator.operation.Operation.SUM;
+import static com.alllexe.calculator.operation.Operation.MINUS;
+import static com.alllexe.calculator.operation.Operation.PLUS;
 
 public class OperationParser {
 
@@ -22,16 +23,28 @@ public class OperationParser {
         validator.isInputValid(input);
 
         StringBuilder value = new StringBuilder();
+        Operation prevOperation = null;
+        Operation operation = null;
         for (int i = 0; i < input.length(); i++) {
             String substring = input.substring(i, i + 1);
-            Operation operation = getOperation(substring, validator.getOperations());
+            if (prevOperation == null) {
+                if ("-".equals(substring)) {
+                    prevOperation = MINUS;
+                    continue;
+                } else {
+                    prevOperation = PLUS;
+                }
+            }
+
+            operation = getOperation(substring, validator.getOperations());
             if (operation != null) {
                 operationExecutorList.add(
                         new OperationExecutor(
-                                operation,
-                                operation.getPriority(),
+                                prevOperation,
+                                prevOperation.getPriority(),
                                 Float.parseFloat(value.toString())));
                 value.setLength(0);
+                prevOperation = operation;
             } else {
                 value.append(substring);
             }
@@ -39,8 +52,8 @@ public class OperationParser {
 
         operationExecutorList.add(
                 new OperationExecutor(
-                        SUM,
-                        SUM.getPriority(),
+                        prevOperation,
+                        prevOperation.getPriority(),
                         Float.parseFloat(value.toString())));
 
         return operationExecutorList;

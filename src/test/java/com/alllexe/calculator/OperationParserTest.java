@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static com.alllexe.calculator.operation.Operation.SUM;
+import static com.alllexe.calculator.operation.Operation.PLUS;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
@@ -28,7 +28,7 @@ class OperationParserTest {
     void parseOperations() {
         OperationParser operationParser = new OperationParser(validator);
 
-        Set<Operation> operations = new HashSet<>(Collections.singletonList(SUM));
+        Set<Operation> operations = new HashSet<>(Collections.singletonList(PLUS));
         doNothing().when(validator).isInputValid(anyString());
         when(validator.getOperations()).thenReturn(operations);
         List<OperationExecutor> operationExecutorList =

@@ -9,7 +9,7 @@ import java.util.Collections;
 
 class ValidatorTest {
 
-    final Validator validator = new Validator(Collections.singleton(Operation.SUM));
+    final Validator validator = new Validator(Collections.singleton(Operation.PLUS));
 
     @Test
     void whenInputNotValidThanException() {

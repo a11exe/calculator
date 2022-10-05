@@ -7,11 +7,11 @@ import com.alllexe.calculator.operation.Operation;
 
 import java.util.*;
 
-import static com.alllexe.calculator.operation.Operation.SUM;
+import static com.alllexe.calculator.operation.Operation.PLUS;
 
 public class Main {
     public static void main(String[] args) {
-        Set<Operation> operations = new HashSet<>(Collections.singletonList(SUM));
+        Set<Operation> operations = new HashSet<>(Collections.singletonList(PLUS));
         Calculator calculator = new Calculator(new OperationParser(new Validator(operations)));
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter string for calculator or type 'exit'");

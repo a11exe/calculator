@@ -17,6 +17,6 @@ public class OperationExecutor {
     }
 
     public Float exec(Float result) {
-        return operationType.getOperation().apply(value, result);
+        return operationType.getOperation().apply(result, value);
     }
 }
