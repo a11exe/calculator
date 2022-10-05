@@ -1,14 +1,14 @@
 package com.alllexe.calculator;
 
-import com.alllexe.calculator.operation.Operation;
+import com.alllexe.calculator.operation.OperationType;
 import com.alllexe.calculator.operation.OperationExecutor;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import static com.alllexe.calculator.operation.Operation.MINUS;
-import static com.alllexe.calculator.operation.Operation.PLUS;
+import static com.alllexe.calculator.operation.OperationType.MINUS;
+import static com.alllexe.calculator.operation.OperationType.PLUS;
 
 public class OperationParser {
 
@@ -23,28 +23,32 @@ public class OperationParser {
         validator.isInputValid(input);
 
         StringBuilder value = new StringBuilder();
-        Operation prevOperation = null;
-        Operation operation = null;
+        OperationType prevOperationType = null;
+        OperationType operationType = null;
+        OperationExecutor prevOperationExecutor = null;
         for (int i = 0; i < input.length(); i++) {
             String substring = input.substring(i, i + 1);
-            if (prevOperation == null) {
+            if (prevOperationType == null) {
                 if ("-".equals(substring)) {
-                    prevOperation = MINUS;
+                    prevOperationType = MINUS;
                     continue;
                 } else {
-                    prevOperation = PLUS;
+                    prevOperationType = PLUS;
                 }
             }
 
-            operation = getOperation(substring, validator.getOperations());
-            if (operation != null) {
-                operationExecutorList.add(
-                        new OperationExecutor(
-                                prevOperation,
-                                prevOperation.getPriority(),
-                                Float.parseFloat(value.toString())));
+            operationType = getOperation(substring, validator.getOperations());
+            if (operationType != null) {
+                OperationExecutor operationExecutor = new OperationExecutor(
+                        prevOperationType,
+                        prevOperationType.getPriority(),
+                        Float.parseFloat(value.toString()),
+                        prevOperationExecutor);
+                operationExecutorList.add(operationExecutor);
+                prevOperationExecutor = operationExecutor;
+
                 value.setLength(0);
-                prevOperation = operation;
+                prevOperationType = operationType;
             } else {
                 value.append(substring);
             }
@@ -52,17 +56,18 @@ public class OperationParser {
 
         operationExecutorList.add(
                 new OperationExecutor(
-                        prevOperation,
-                        prevOperation.getPriority(),
-                        Float.parseFloat(value.toString())));
+                        prevOperationType,
+                        prevOperationType.getPriority(),
+                        Float.parseFloat(value.toString()),
+                        prevOperationExecutor));
 
         return operationExecutorList;
     }
 
-    private Operation getOperation(String str, Set<Operation> operations) {
-       return operations.stream()
-               .filter(o -> o.getSign().equals(str))
-               .findFirst()
-               .orElse(null);
+    private OperationType getOperation(String str, Set<OperationType> operationTypes) {
+        return operationTypes.stream()
+                .filter(o -> o.getSign().equals(str))
+                .findFirst()
+                .orElse(null);
     }
 }

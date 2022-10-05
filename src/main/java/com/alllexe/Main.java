@@ -3,16 +3,16 @@ package com.alllexe;
 import com.alllexe.calculator.Calculator;
 import com.alllexe.calculator.OperationParser;
 import com.alllexe.calculator.Validator;
-import com.alllexe.calculator.operation.Operation;
+import com.alllexe.calculator.operation.OperationType;
 
 import java.util.*;
 
-import static com.alllexe.calculator.operation.Operation.PLUS;
+import static com.alllexe.calculator.operation.OperationType.PLUS;
 
 public class Main {
     public static void main(String[] args) {
-        Set<Operation> operations = new HashSet<>(Collections.singletonList(PLUS));
-        Calculator calculator = new Calculator(new OperationParser(new Validator(operations)));
+        Set<OperationType> operationTypes = new HashSet<>(Collections.singletonList(PLUS));
+        Calculator calculator = new Calculator(new OperationParser(new Validator(operationTypes)));
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter string for calculator or type 'exit'");
         String strInput = scanner.nextLine();

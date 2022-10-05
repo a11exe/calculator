@@ -5,14 +5,14 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.HashSet;
 
-import static com.alllexe.calculator.operation.Operation.MINUS;
-import static com.alllexe.calculator.operation.Operation.PLUS;
+import static com.alllexe.calculator.operation.OperationType.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CalculatorIntegrationTest {
 
     final Calculator calculator
-            = new Calculator(new OperationParser(new Validator(new HashSet<>(Arrays.asList(PLUS, MINUS)))));
+            = new Calculator(new OperationParser(new Validator(
+                    new HashSet<>(Arrays.asList(PLUS, MINUS, MULTIPLE, DIVIDE)))));
 
     @Test
     void whenSumThanRightResult() {
