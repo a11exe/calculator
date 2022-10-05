@@ -18,6 +18,9 @@ class CalculatorIntegrationTest {
         assertEquals("6.5", calculator.calculate("0.5+6"));
     }
 
-
+    @Test
+    void whenSumWithMinusThanRightResult() {
+        assertEquals("4.5", calculator.calculate("-0.5+6-1"));
+    }
 
 }
