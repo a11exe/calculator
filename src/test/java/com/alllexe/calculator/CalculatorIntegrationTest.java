@@ -23,10 +23,14 @@ class CalculatorIntegrationTest {
     void whenSumWithMinusThanRightResult() {
         assertEquals("4.5", calculator.calculate("-0.5+6-1"));
     }
-
     @Test
     void whenDivideAndMultipleWithMinusThanRightResult() {
         assertEquals("2.5", calculator.calculate("-0.5+6-2*3+6/2"));
+    }
+
+    @Test
+    void whenDivideAndMultipleWithBraceshanRightResult() {
+        assertEquals("14.5", calculator.calculate("-0.5+(6-2)*3+6/2"));
     }
 
 
