@@ -29,13 +29,16 @@ class CalculatorTest {
         OperationExecutor o2 = new OperationExecutor(OperationType.PLUS, 6f);
         OperationExecutor o21 = new OperationExecutor(OperationType.MINUS, 2f);
         o2.getOperationExecutorList().add(o21);
-        OperationExecutor o211 = new OperationExecutor(OperationType.MULTIPLE, 4f);
+        OperationExecutor o211 = new OperationExecutor(OperationType.MULTIPLE, 3f);
         OperationExecutor o2111 = new OperationExecutor(OperationType.MINUS, 1f);
         o21.getOperationExecutorList().add(o211);
         o211.getOperationExecutorList().add(o2111);
+        OperationExecutor o22 = new OperationExecutor(OperationType.MULTIPLE, 3f);
+        o2.getOperationExecutorList().add(o22);
+
         operationExecutorList.addAll(Arrays.asList(o1, o2));
         when(operationParser.parseOperations(anyString())).thenReturn(operationExecutorList);
-        assertEquals("-0.5", calculator.calculate("-0.5+(6-2*(4-1))"));
+        assertEquals("5.5", calculator.calculate("-0.5+(6-2*(3-1))*3"));
     }
 
     @Test

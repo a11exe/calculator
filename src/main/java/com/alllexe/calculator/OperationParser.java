@@ -20,7 +20,7 @@ public class OperationParser {
 
     public List<OperationExecutor> parseOperations(String input) {
         List<OperationExecutor> operationExecutorList = new ArrayList<>();
-//        validator.isInputValid(input);
+        validator.validate(input);
 //
 //        StringBuilder value = new StringBuilder();
 //        OperationType prevOperationType = null;

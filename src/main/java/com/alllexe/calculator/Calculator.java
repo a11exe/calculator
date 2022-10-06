@@ -24,16 +24,20 @@ public class Calculator {
         return result;
     }
 
-    public Float calcOperationsResult(Float result, List<OperationExecutor> operationExecutors) {
+    private Float calcOperationsResult(Float result, List<OperationExecutor> operationExecutors) {
         for (OperationExecutor operationExecutor : operationExecutors) {
-            List<OperationExecutor> subOperationExecutorList = operationExecutor.getOperationExecutorList();
-            if (subOperationExecutorList.size() > 0) {
-                Float subResult = calcOperationsResult(operationExecutor.getValue(), subOperationExecutorList);
-                operationExecutor.setValue(subResult);
-                subOperationExecutorList.clear();
-            }
+            calculateSubOperations(operationExecutor);
             result = operationExecutor.exec(result);
         }
         return result;
+    }
+
+    private void calculateSubOperations(OperationExecutor operationExecutor) {
+        List<OperationExecutor> subOperationExecutorList = operationExecutor.getOperationExecutorList();
+        if (subOperationExecutorList.size() > 0) {
+            Float subResult = calcOperationsResult(operationExecutor.getValue(), subOperationExecutorList);
+            operationExecutor.setValue(subResult);
+            subOperationExecutorList.clear();
+        }
     }
 }

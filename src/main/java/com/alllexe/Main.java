@@ -14,7 +14,7 @@ public class Main {
         Set<OperationType> operationTypes = new HashSet<>(Collections.singletonList(PLUS));
         Calculator calculator = new Calculator(new OperationParser(new Validator(operationTypes)));
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter string for calculator or type 'exit'");
+        System.out.println("Enter string for calculation or type 'exit'");
         String strInput = scanner.nextLine();
         while (!"exit".equals(strInput)) {
             System.out.println("Result is:" + calculator.calculate(strInput));

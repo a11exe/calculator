@@ -43,6 +43,48 @@ class ValidatorTest {
     }
 
     @Test
+    void whenInputBracesLeftWrongThanException() {
+        Assertions.assertThrows(InputNotValidException.class,
+                () -> validator.validate("((3+5)"));
+    }
+
+    @Test
+    void whenInputBracesRigtWrongThanException() {
+        Assertions.assertThrows(InputNotValidException.class,
+                () -> validator.validate("((3+5)))"));
+    }
+
+    @Test
+    void whenInputBracesLeftAbsentThanException() {
+        Assertions.assertThrows(InputNotValidException.class,
+                () -> validator.validate("3+5)"));
+    }
+
+    @Test
+    void whenInputBracesRightAbsentThanException() {
+        Assertions.assertThrows(InputNotValidException.class,
+                () -> validator.validate("(3+5"));
+    }
+
+    @Test
+    void whenInputBracesWrongThanException() {
+        Assertions.assertThrows(InputNotValidException.class,
+                () -> validator.validate("())3+5("));
+    }
+
+    @Test
+    void whenInputBracesEmptyThanException() {
+        Assertions.assertThrows(InputNotValidException.class,
+                () -> validator.validate("3+()+5"));
+    }
+
+    @Test
+    void whenInputBracesReverseEmptyThanException() {
+        Assertions.assertThrows(InputNotValidException.class,
+                () -> validator.validate("(3+7)(-1+5"));
+    }
+
+    @Test
     void whenInputValidThanNoException() {
         validator.validate("(5+4)");
     }
