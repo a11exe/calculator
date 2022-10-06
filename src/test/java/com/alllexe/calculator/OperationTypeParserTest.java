@@ -1,7 +1,9 @@
 package com.alllexe.calculator;
 
 import com.alllexe.calculator.operation.OperationType;
-import com.alllexe.calculator.operation.OperationExecutor;
+import com.alllexe.calculator.operation.Operation;
+import com.alllexe.calculator.parser.OperationParserImpl;
+import com.alllexe.calculator.validator.ValidatorImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -9,7 +11,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import static com.alllexe.calculator.operation.OperationType.PLUS;
@@ -22,18 +23,18 @@ import static org.mockito.Mockito.when;
 class OperationTypeParserTest {
 
     @Mock
-    Validator validator;
+    ValidatorImpl validatorImpl;
 
     @Test
     void parseOperations() {
-        OperationParser operationParser = new OperationParser(validator);
+        OperationParserImpl operationParserImpl = new OperationParserImpl(validatorImpl);
 
         Set<OperationType> operationTypes = new HashSet<>(Collections.singletonList(PLUS));
-        doNothing().when(validator).validate(anyString());
-        when(validator.getOperations()).thenReturn(operationTypes);
-        List<OperationExecutor> operationExecutorList =
-                operationParser.parseOperations("4+5");
-        assertEquals(2, operationExecutorList.size());
+        doNothing().when(validatorImpl).validate(anyString());
+        when(validatorImpl.getOperations()).thenReturn(operationTypes);
+        Operation operation =
+                operationParserImpl.parseOperations("4+5");
+        assertEquals(3, operation.getOperations().size());
 
     }
 }

@@ -1,4 +1,5 @@
-# calculator
+# Calculator
+### Simple calculator (+-*/) with parentheses
 
 Напишите на Java консольный калькулятор, который принимает входную строку,
 содержащую математическое выражение (целые и десятично-дробные числа, знаки +, -, *, / и скобки) 
@@ -21,4 +22,19 @@
 -3+2
 2*(-3)
 2-(-3)
+```
+
+# Install
+```
+git clone https://github.com/a11exe/calculator
+```
+
+# Build
+```
+./gradlew clean build
+```
+
+# Run
+```
+java -jar ./build/libs/calculator-1.0-SNAPSHOT.jar
 ```

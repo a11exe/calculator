@@ -1,18 +1,17 @@
-package com.alllexe;
+package com.alllexe.calculator;
 
-import com.alllexe.calculator.Calculator;
-import com.alllexe.calculator.OperationParser;
-import com.alllexe.calculator.Validator;
+import com.alllexe.calculator.parser.OperationParserImpl;
 import com.alllexe.calculator.operation.OperationType;
+import com.alllexe.calculator.validator.ValidatorImpl;
 
 import java.util.*;
 
-import static com.alllexe.calculator.operation.OperationType.PLUS;
+import static com.alllexe.calculator.operation.OperationType.*;
 
 public class Main {
     public static void main(String[] args) {
-        Set<OperationType> operationTypes = new HashSet<>(Collections.singletonList(PLUS));
-        Calculator calculator = new Calculator(new OperationParser(new Validator(operationTypes)));
+        Set<OperationType> operationTypes = new HashSet<>(Arrays.asList(PLUS, MINUS, MULTIPLE, DIVIDE));
+        Calculator calculator = new Calculator(new OperationParserImpl(new ValidatorImpl(operationTypes)));
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter string for calculation or type 'exit'");
         String strInput = scanner.nextLine();

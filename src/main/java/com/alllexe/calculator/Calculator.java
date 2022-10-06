@@ -1,9 +1,8 @@
 package com.alllexe.calculator;
 
 import com.alllexe.calculator.exception.GeneralApplicationException;
-import com.alllexe.calculator.operation.OperationExecutor;
-
-import java.util.List;
+import com.alllexe.calculator.operation.Operation;
+import com.alllexe.calculator.parser.OperationParser;
 
 public class Calculator {
 
@@ -16,28 +15,11 @@ public class Calculator {
     public String calculate(String input) {
         String result;
         try {
-            List<OperationExecutor> operationExecutors = operationParser.parseOperations(input);
-            result = calcOperationsResult(0f, operationExecutors).toString();
+            Operation operation = operationParser.parseOperations(input);
+            result = operation.exec(0f).toString();
         } catch (GeneralApplicationException e) {
             result = e.getLocalizedMessage();
         }
         return result;
-    }
-
-    private Float calcOperationsResult(Float result, List<OperationExecutor> operationExecutors) {
-        for (OperationExecutor operationExecutor : operationExecutors) {
-            calculateSubOperations(operationExecutor);
-            result = operationExecutor.exec(result);
-        }
-        return result;
-    }
-
-    private void calculateSubOperations(OperationExecutor operationExecutor) {
-        List<OperationExecutor> subOperationExecutorList = operationExecutor.getOperationExecutorList();
-        if (subOperationExecutorList.size() > 0) {
-            Float subResult = calcOperationsResult(operationExecutor.getValue(), subOperationExecutorList);
-            operationExecutor.setValue(subResult);
-            subOperationExecutorList.clear();
-        }
     }
 }

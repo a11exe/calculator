@@ -1,20 +1,21 @@
-package com.alllexe.calculator;
+package com.alllexe.calculator.validator;
 
 import com.alllexe.calculator.exception.InputNotValidException;
 import com.alllexe.calculator.operation.OperationType;
 
 import java.util.Set;
 
-public class Validator {
+public class ValidatorImpl implements Validator {
 
     private final String characters = "0-9.()";
 
     private final Set<OperationType> operationTypes;
 
-    public Validator(Set<OperationType> operationTypes) {
+    public ValidatorImpl(Set<OperationType> operationTypes) {
         this.operationTypes = operationTypes;
     }
 
+    @Override
     public void validate(String input) {
         if (input.isBlank()) {
             throw new InputNotValidException("String is empty");
@@ -60,6 +61,7 @@ public class Validator {
         }
     }
 
+    @Override
     public Set<OperationType> getOperations() {
         return operationTypes;
     }
