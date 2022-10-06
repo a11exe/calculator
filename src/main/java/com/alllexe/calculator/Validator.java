@@ -19,6 +19,12 @@ public class Validator {
         if (input.isBlank()) {
             throw new InputNotValidException("String is empty");
         }
+        if (input.contains("()")) {
+            throw new InputNotValidException("String contains empty parentheses");
+        }
+        if (input.contains(")(")) {
+            throw new InputNotValidException("String contains empty parentheses");
+        }
         String start = input.substring(0, 1);
         if (!start.matches("[0-9-(]")) {
             throw new InputNotValidException("String starts from wrong character");
@@ -35,6 +41,22 @@ public class Validator {
         regex.append("]+");
         if (!input.matches(regex.toString())) {
             throw new InputNotValidException("String contains illegal characters");
+        }
+        int parenthesesCounter = 0;
+        for (int i = 0; i < input.length(); i++) {
+            String substring = input.substring(i, i + 1);
+            if ("(".equals(substring)) {
+                parenthesesCounter++;
+            }
+            if (")".equals(substring)) {
+                parenthesesCounter--;
+            }
+            if (parenthesesCounter < 0) {
+                throw new InputNotValidException("String contains wrong parentheses");
+            }
+        }
+        if (parenthesesCounter != 0) {
+            throw new InputNotValidException("String contains wrong parentheses");
         }
     }
 

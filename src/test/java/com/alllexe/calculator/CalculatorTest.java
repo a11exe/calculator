@@ -22,7 +22,7 @@ class CalculatorTest {
     OperationParser operationParser;
 
     @Test
-    void whenCalculateAllOperationTypesWithBraces() {
+    void whenCalculateAllOperationTypesWithParentheses() {
         Calculator calculator = new Calculator(operationParser);
         List<OperationExecutor> operationExecutorList = new ArrayList<>();
         OperationExecutor o1 = new OperationExecutor(OperationType.MINUS, 0.5f);
@@ -42,7 +42,7 @@ class CalculatorTest {
     }
 
     @Test
-    void whenCalculateAllOperationTypesWithoutBraces() {
+    void whenCalculateAllOperationTypesWithoutParentheses() {
         Calculator calculator = new Calculator(operationParser);
         List<OperationExecutor> operationExecutorList = new ArrayList<>();
         OperationExecutor o1 = new OperationExecutor(OperationType.MINUS, 0.5f);
