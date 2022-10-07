@@ -1,7 +1,9 @@
 package com.alllexe.calculator;
 
+import com.alllexe.calculator.exception.InputNotValidException;
 import com.alllexe.calculator.parser.OperationParserImpl;
 import com.alllexe.calculator.validator.ValidatorImpl;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -15,6 +17,12 @@ class CalculatorIntegrationTest {
     final Calculator calculator
             = new Calculator(new OperationParserImpl(new ValidatorImpl(
                     new HashSet<>(Arrays.asList(PLUS, MINUS, MULTIPLE, DIVIDE)))));
+
+    @Test
+    void whenNotValidThanException() {
+        assertEquals("String contains illegal characters",
+                calculator.calculate("1++2-3"));
+    }
 
     @Test
     void whenSumAndMinusThanRightResult() {

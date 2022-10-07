@@ -8,6 +8,8 @@ public interface Validator {
 
     void validate(String input);
 
+    void validateNumber(String input);
+
     Set<OperationType> getOperations();
 
 }

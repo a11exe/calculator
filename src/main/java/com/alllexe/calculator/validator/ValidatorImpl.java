@@ -62,6 +62,13 @@ public class ValidatorImpl implements Validator {
     }
 
     @Override
+    public void validateNumber(String input) {
+        if (!input.matches("[0-9.]+")) {
+            throw new InputNotValidException("String contains illegal characters");
+        }
+    }
+
+    @Override
     public Set<OperationType> getOperations() {
         return operationTypes;
     }

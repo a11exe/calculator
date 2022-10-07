@@ -83,7 +83,7 @@ public class OperationParserImpl implements OperationParser {
             if (operationType != null) {
                 Operation operation = new Operation(
                         prevOperationType,
-                        valueSign * Float.parseFloat(value.toString()));
+                        valueSign * getValue(value.toString()));
                 addOperation(operation, operationList, prevOperation);
                 valueSign = 1;
                 value.setLength(0);
@@ -97,11 +97,17 @@ public class OperationParserImpl implements OperationParser {
         if (!value.toString().isBlank()) {
             Operation operation = new Operation(
                     prevOperationType,
-                    valueSign * Float.parseFloat(value.toString()));
+                    valueSign * getValue(value.toString()));
             addOperation(operation, operationList, prevOperation);
         }
         return operationMain;
     }
+
+    private Float getValue(String value) {
+        validator.validateNumber(value);
+        return Float.parseFloat(value);
+    }
+
 
     private OperationType getOperationType(String str, Set<OperationType> operationTypes) {
         return operationTypes.stream()
